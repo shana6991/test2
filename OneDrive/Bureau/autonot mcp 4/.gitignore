@@ -1,0 +1,11 @@
+# Ignorer tout sauf le projet courant
+/*
+!.gitignore
+!src/
+!public/
+!Dockerfile.dockerfile
+!docker-compose.yml
+!package.json
+!quickstart.sh
+!autonot-mcp
+!.env

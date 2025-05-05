@@ -1,0 +1,143 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de Templates Notion avec Claude</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container py-5">
+    <header class="text-center mb-5">
+      <div class="logo mx-auto mb-2">
+        <i class="bi bi-grid-3x3-gap me-2"></i>
+        <span>TemplatesGPT</span>
+      </div>
+      <h1 class="mb-3">Générateur de Templates Notion</h1>
+      <p class="lead text-muted">Créez des templates Notion complètes et personnalisées en quelques secondes grâce à l'IA</p>
+    </header>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card main-card mb-4">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">Nouvelle Template</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="example-tab" data-bs-toggle="tab" data-bs-target="#example" type="button" role="tab" aria-controls="example" aria-selected="false">Exemples</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="enhance-tab" data-bs-toggle="tab" data-bs-target="#enhance" type="button" role="tab" aria-controls="enhance" aria-selected="false">Améliorer</button>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <!-- Onglet Nouvelle Template -->
+              <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab">
+                <form id="templateForm">
+                  <div class="mb-3">
+                    <label for="promptInput" class="form-label">Décrivez la template que vous souhaitez créer :</label>
+                    <textarea class="form-control" id="promptInput" rows="4" placeholder="Ex: Crée une template pour un système de gestion de projet avec suivi des tâches, échéances, et rapports d'avancement"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Générer ma template</button>
+                </form>
+              </div>
+              
+              <!-- Onglet Exemples -->
+              <div class="tab-pane fade" id="example" role="tabpanel" aria-labelledby="example-tab">
+                <h5 class="mb-4">Exemples de templates</h5>
+                <div class="row g-3">
+                  <!-- Exemple 1 -->
+                  <div class="col-md-4">
+                    <div class="example-box" data-prompt="Crée une template pour un journal personnel quotidien avec suivi d'humeur, gratitude, objectifs et réflexions. Style minimaliste avec tons pastel.">
+                      <div class="example-icon">📔</div>
+                      <h6>Journal personnel</h6>
+                      <p class="small text-muted">Journal quotidien avec suivi d'humeur et gratitude</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Exemple 2 -->
+                  <div class="col-md-4">
+                    <div class="example-box" data-prompt="Génère une template pour un dashboard marketing digital avec KPIs, calendrier de contenu, suivi de campagnes et analytics. Style professionnel avec des tons bleus.">
+                      <div class="example-icon">📊</div>
+                      <h6>Dashboard marketing</h6>
+                      <p class="small text-muted">Suivi de KPIs et planification de campagnes</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Exemple 3 -->
+                  <div class="col-md-4">
+                    <div class="example-box" data-prompt="Crée une template pour un système de gestion de connaissances personnel (PKM) avec notes structurées, base de ressources, et méthode PARA. Style épuré avec des tons verts.">
+                      <div class="example-icon">🧠</div>
+                      <h6>Gestion de connaissances</h6>
+                      <p class="small text-muted">Organisation de notes et ressources personnelles</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Onglet Améliorer -->
+              <div class="tab-pane fade" id="enhance" role="tabpanel" aria-labelledby="enhance-tab">
+                <h5 class="mb-4">Améliorer une template existante</h5>
+                <form id="enhanceForm">
+                  <div class="mb-3">
+                    <label for="pageId" class="form-label">ID de la page Notion à améliorer :</label>
+                    <input type="text" class="form-control" id="pageId" placeholder="Ex: 8a12c6f890ab4cd5e678f901e23d45g6">
+                    <div class="form-text">Vous pouvez trouver l'ID dans l'URL de votre page Notion</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="stylePrompt" class="form-label">Instructions de style visuel :</label>
+                    <textarea class="form-control" id="stylePrompt" rows="3" placeholder="Ex: Style minimaliste avec une palette de couleurs bleu-gris, des icônes cohérentes et une organisation claire"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Améliorer ma template</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Spinner de chargement -->
+        <div class="text-center my-4 d-none" id="loadingSpinner">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+          <p class="mt-2">Génération de votre template en cours...</p>
+          <p class="text-muted small">Cela peut prendre jusqu'à 1-2 minutes selon la complexité.</p>
+        </div>
+        
+        <!-- Résultat -->
+        <div class="card success-card d-none" id="resultContainer">
+          <div class="card-body">
+            <h5 class="card-title text-success"><i class="bi bi-check-circle-fill me-2"></i>Template générée avec succès !</h5>
+            <p class="card-text">Votre template Notion est prête à être utilisée. Vous pouvez y accéder en cliquant sur le lien ci-dessous.</p>
+            <a href="#" class="btn btn-success" id="templateLink" target="_blank">Ouvrir ma template dans Notion</a>
+          </div>
+        </div>
+        
+        <!-- Message d'erreur -->
+        <div class="card error-card d-none" id="errorContainer">
+          <div class="card-body">
+            <h5 class="card-title text-danger"><i class="bi bi-exclamation-circle-fill me-2"></i>Une erreur est survenue</h5>
+            <p class="card-text" id="errorMessage">Impossible de générer la template. Veuillez réessayer plus tard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="text-center mt-5 text-muted">
+      <p>Générateur de Templates Notion avec Claude 3.7 Sonnet</p>
+      <p class="small">© 2025 - Une application MCP (Middleware Communication Protocol)</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
